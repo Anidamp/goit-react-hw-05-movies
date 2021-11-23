@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { Suspense, useEffect, useState } from "react"
 import { Route, Routes, useLocation, useNavigate, useParams } from "react-router";
 import { NavLink } from "react-router-dom";
 import MovieDetails from "../components/MovieDetails/MovieDetails";
@@ -6,6 +6,7 @@ import * as apiService from '../services/apiService';
 import Actors from '../components/MovieDetails/Actors';
 import Reviews from "../components/MovieDetails/Reviews";
 import s from '../components/Navigation/Navigation.module.css'
+import Loader from "../components/Loader/Loader";
 
 
 
@@ -43,11 +44,12 @@ export default function MovieDetailsPage() {
           <NavLink 
           to= 'reviews' className = {s.botLink}
            >Reviews</NavLink>
-
+         <Suspense fallback={<Loader />}>
           <Routes>
             <Route path='/actors' element={<Actors/>} />
             <Route path='/reviews' element ={<Reviews/>} />
           </Routes>
+          </Suspense>
     </div>
        </>
     )
